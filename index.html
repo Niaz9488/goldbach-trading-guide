@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goldbach Trifecta Trading Setups</title>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const GoldbachVisualSetups = () => {
+          const [activeSetup, setActiveSetup] = useState(1);
+
+          const levels = [
+            { pct: 100, price: '1.2393', label: '100% HIGH', color: 'green', thick: true },
+            { pct: 97, price: '1.2386', label: '97%', color: 'green' },
+            { pct: 89, price: '1.2366', label: '89%', color: 'green' },
+            { pct: 83, price: '1.2352', label: '83% GIP', color: 'green', thick: true },
+            { pct: 71, price: '1.2323', label: '71% FLOW', color: 'blue', thick: true },
+            { pct: 65, price: '1.2308', label: '65%', color: 'blue' },
+            { pct: 59, price: '1.2293', label: '59%', color: 'red' },
+            { pct: 53, price: '1.2279', label: '53% REBAL', color: 'red', thick: true },
+            { pct: 47, price: '1.2264', label: '47% REBAL', color: 'red', thick: true },
+            { pct: 41, price: '1.2250', label: '41%', color: 'red' },
+            { pct: 35, price: '1.2235', label: '35%', color: 'blue' },
+            { pct: 29, price: '1.2220', label: '29% FLOW', color: 'blue', thick: true },
+            { pct: 17, price: '1.2191', label: '17% GIP', color: 'green', thick: true },
+            { pct: 11, price: '1.2177', label: '11%', color: 'green' },
+            { pct: 3, price: '1.2157', label: '3%', color: 'green' },
+            { pct: 0, price: '1.2150', label: '0% LOW', color: 'green', thick: true },
+          ];
+
+          const setups = {
+            1: {
+              name: 'LIQUIDITY TRAP (Bearish)',
+              color: 'orange',
+              bgColor: 'bg-orange-50',
+              borderColor: 'border-orange-500',
+              steps: [
+                { num: 1, text: 'Price hovers at 97% (1.2386)' },
+                { num: 2, text: 'Consolidation 1-4 hours, small wicks above 100%' },
+                { num: 3, text: 'WAIT - This is the liquidity trap!' },
+                { num: 4, text: 'Aggressive break below 89% (1.2366)' },
+                { num: 5, text: '✅ ENTER SHORT at 1.2365' },
+                { num: 6, text: '❌ Stop Loss: 1.2398 (33 pips)' },
+                { num: 7, text: '🎯 Target 1: 1.2323 (71%) = +42 pips' },
+                { num: 8, text: '🎯 Target 2: 1.2279 (53%) = +86 pips' },
+              ],
+              path: [
+                { x: 10, y: 3 }, { x: 20, y: 3 }, { x: 30, y: 2 }, { x: 40, y: 3 },
+                { x: 50, y: 11 }, { x: 60, y: 29 }, { x: 70, y: 40 }, { x: 80, y: 47 }
+              ],
+              keyPoint: "Consolidation at 97% traps retail traders. When it breaks 89%, their stops get taken!",
+              risk: "33 pips",
+              reward: "42-86 pips",
+              winRate: "75-85%"
+            },
+            2: {
+              name: 'FLOW CONTINUATION (Bullish)',
+              color: 'blue',
+              bgColor: 'bg-blue-50',
+              borderColor: 'border-blue-500',
+              steps: [
+                { num: 1, text: 'Price breaks above 29% flow (1.2220)' },
+                { num: 2, text: '⚠️ DON\'T BUY YET! Wait...' },
+                { num: 3, text: 'Price retraces back down' },
+                { num: 4, text: '✅ ENTER LONG at 29% (1.2220)' },
+                { num: 5, text: '❌ Stop Loss: 1.2185 (35 pips)' },
+                { num: 6, text: '🎯 Target 1: 1.2264 (47%) = +44 pips' },
+                { num: 7, text: '🎯 Target 2: 1.2323 (71%) = +103 pips' },
+              ],
+              path: [
+                { x: 10, y: 80 }, { x: 20, y: 60 }, { x: 30, y: 40 }, { x: 40, y: 29 },
+                { x: 50, y: 35 }, { x: 60, y: 29 }, { x: 70, y: 47 }, { x: 80, y: 71 }
+              ],
+              keyPoint: "NEVER buy the initial breakout! Always wait for the retrace to the flow gate.",
+              risk: "35 pips",
+              reward: "44-103 pips",
+              winRate: "70-80%"
+            },
+            3: {
+              name: 'FLOW REJECTION (Bearish)',
+              color: 'red',
+              bgColor: 'bg-red-50',
+              borderColor: 'border-red-500',
+              steps: [
+                { num: 1, text: 'Price touches 71% flow (1.2323)' },
+                { num: 2, text: 'HARD REJECTION - Creates gap below' },
+                { num: 3, text: 'Price drops initially' },
+                { num: 4, text: 'Price retraces back UP to gap' },
+                { num: 5, text: '✅ ENTER SHORT in gap (~1.2315)' },
+                { num: 6, text: '❌ Stop Loss: 1.2357 (42 pips)' },
+                { num: 7, text: '🎯 Target 1: 1.2279 (53%) = +36 pips' },
+                { num: 8, text: '🎯 Target 2: 1.2220 (29%) = +95 pips' },
+              ],
+              path: [
+                { x: 10, y: 50 }, { x: 20, y: 60 }, { x: 30, y: 71 }, { x: 40, y: 60 },
+                { x: 50, y: 68 }, { x: 60, y: 53 }, { x: 70, y: 40 }, { x: 80, y: 29 }
+              ],
+              keyPoint: "Gaps created by rejections act like magnets - price often retraces to fill them.",
+              risk: "42 pips",
+              reward: "36-95 pips",
+              winRate: "65-75%"
+            },
+            4: {
+              name: 'REBALANCE SCALP (Range)',
+              color: 'purple',
+              bgColor: 'bg-purple-50',
+              borderColor: 'border-purple-500',
+              steps: [
+                { num: 1, text: 'Chop between 47-53% (middle)' },
+                { num: 2, text: 'Liquidity builds in center' },
+                { num: 3, text: 'Price extends to 41% or 59%' },
+                { num: 4, text: '✅ LONG at 41% OR SHORT at 59%' },
+                { num: 5, text: '❌ Stop: 10-15 pips outside zone' },
+                { num: 6, text: '🎯 Target: Opposite edge (40-50 pips)' },
+                { num: 7, text: 'Quick scalp 30min-2hrs' },
+              ],
+              path: [
+                { x: 10, y: 50 }, { x: 20, y: 48 }, { x: 30, y: 52 }, { x: 40, y: 49 },
+                { x: 50, y: 41 }, { x: 60, y: 45 }, { x: 70, y: 55 }, { x: 80, y: 59 }
+              ],
+              keyPoint: "Best for choppy, sideways markets. Quick in and out trades with tight risk.",
+              risk: "15 pips",
+              reward: "40-50 pips",
+              winRate: "60-70%"
+            }
+          };
+
+          const currentSetup = setups[activeSetup];
+
+          return (
+            <div className="w-full max-w-7xl mx-auto p-6 bg-gray-900">
+              <div className="bg-white rounded-xl p-8">
+                <h1 className="text-4xl font-bold text-center text-blue-900 mb-4">
+                  GOLDBACH TRIFECTA - VISUAL TRADE SETUPS
+                </h1>
+                <p className="text-center text-gray-600 text-lg mb-2">
+                  EUR/USD Range: 1.2150 - 1.2393 (243 pips)
+                </p>
+                <p className="text-center text-gray-500 mb-8">
+                  Click each setup to see detailed price movement
+                </p>
+
+                {/* Setup Selector */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                  {[1, 2, 3, 4].map((num) => (
+                    <button
+                      key={num}
+                      onClick={() => setActiveSetup(num)}
+                      className={`p-4 rounded-lg font-bold text-sm transition-all ${
+                        activeSetup === num
+                          ? `${setups[num].borderColor} border-4 ${setups[num].bgColor} scale-105`
+                          : 'border-2 border-gray-300 bg-gray-50 hover:border-gray-400'
+                      }`}
+                    >
+                      Setup {num}<br />
+                      <span className="text-xs font-normal">{setups[num].name.split(' ')[0]}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Main Chart */}
+                <div className={`${currentSetup.bgColor} ${currentSetup.borderColor} border-4 rounded-xl p-6 mb-6`}>
+                  <h2 className="text-2xl font-bold text-center mb-6">
+                    🎯 SETUP {activeSetup}: {currentSetup.name}
+                  </h2>
+
+                  <div className="bg-white border-4 border-black rounded-lg p-8 relative" style={{ height: '600px' }}>
+                    {/* Price Levels */}
+                    {levels.map((level) => {
+                      const colorClass = {
+                        green: 'border-green-600 text-green-700',
+                        blue: 'border-blue-600 text-blue-700',
+                        red: 'border-red-600 text-red-700'
+                      }[level.color];
+
+                      return (
+                        <div
+                          key={level.pct}
+                          className={`absolute left-0 right-0 border-t-2 ${
+                            level.thick ? 'border-solid' : 'border-dashed'
+                          } ${colorClass}`}
+                          style={{ bottom: `${level.pct}%` }}
+                        >
+                          <span className="absolute left-2 -top-3 bg-white px-2 text-xs font-bold">
+                            {level.label}
+                          </span>
+                          <span className="absolute right-2 -top-3 bg-gray-100 px-2 text-xs font-mono">
+                            {level.price}
+                          </span>
+                        </div>
+                      );
+                    })}
+
+                    {/* Price Movement Path */}
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                      <defs>
+                        <marker id="arrowhead-up" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                          <polygon points="0,0 10,5 0,10" fill="#22c55e" />
+                        </marker>
+                        <marker id="arrowhead-down" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                          <polygon points="0,0 10,5 0,10" fill="#ef4444" />
+                        </marker>
+                      </defs>
+                      {currentSetup.path.map((point, idx) => {
+                        if (idx === currentSetup.path.length - 1) return null;
+                        const next = currentSetup.path[idx + 1];
+                        const x1 = `${point.x}%`;
+                        const y1 = `${100 - point.y}%`;
+                        const x2 = `${next.x}%`;
+                        const y2 = `${100 - next.y}%`;
+                        const isUp = next.y > point.y;
+                        
+                        return (
+                          <line
+                            key={idx}
+                            x1={x1}
+                            y1={y1}
+                            x2={x2}
+                            y2={y2}
+                            stroke={isUp ? '#22c55e' : '#ef4444'}
+                            strokeWidth="4"
+                            markerEnd={idx === currentSetup.path.length - 2 ? (isUp ? 'url(#arrowhead-up)' : 'url(#arrowhead-down)') : ''}
+                          />
+                        );
+                      })}
+                      
+                      {/* Entry/Exit Points */}
+                      {currentSetup.path.map((point, idx) => {
+                        let label = '';
+                        let color = '';
+                        if (idx === 0) return null;
+                        if (activeSetup === 1 && idx === 4) { label = 'ENTRY'; color = '#22c55e'; }
+                        if (activeSetup === 1 && idx === 5) { label = 'T1'; color = '#f59e0b'; }
+                        if (activeSetup === 1 && idx === 7) { label = 'T2'; color = '#f59e0b'; }
+                        if (activeSetup === 2 && idx === 5) { label = 'ENTRY'; color = '#22c55e'; }
+                        if (activeSetup === 2 && idx === 6) { label = 'T1'; color = '#f59e0b'; }
+                        if (activeSetup === 2 && idx === 7) { label = 'T2'; color = '#f59e0b'; }
+                        if (activeSetup === 3 && idx === 4) { label = 'ENTRY'; color = '#22c55e'; }
+                        if (activeSetup === 3 && idx === 5) { label = 'T1'; color = '#f59e0b'; }
+                        if (activeSetup === 3 && idx === 7) { label = 'T2'; color = '#f59e0b'; }
+                        if (activeSetup === 4 && idx === 4) { label = 'ENTRY'; color = '#22c55e'; }
+                        if (activeSetup === 4 && idx === 7) { label = 'TARGET'; color = '#f59e0b'; }
+                        
+                        if (!label) return null;
+                        
+                        return (
+                          <g key={idx}>
+                            <circle
+                              cx={`${point.x}%`}
+                              cy={`${100 - point.y}%`}
+                              r="8"
+                              fill={color}
+                              stroke="white"
+                              strokeWidth="2"
+                            />
+                            <text
+                              x={`${point.x}%`}
+                              y={`${100 - point.y - 3}%`}
+                              textAnchor="middle"
+                              fontSize="11"
+                              fontWeight="bold"
+                              fill={color}
+                            >
+                              {label}
+                            </text>
+                          </g>
+                        );
+                      })}
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Step-by-Step Instructions */}
+                <div className="bg-blue-50 border-4 border-blue-600 rounded-xl p-6 mb-6">
+                  <h3 className="text-xl font-bold text-blue-900 mb-4">
+                    ⚠️ STEP-BY-STEP EXECUTION
+                  </h3>
+                  <ol className="space-y-3">
+                    {currentSetup.steps.map((step, idx) => (
+                      <li key={idx} className="flex items-start gap-3 bg-white p-3 rounded-lg">
+                        <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">
+                          {step.num}
+                        </div>
+                        <p className="pt-1 text-gray-800 font-medium">{step.text}</p>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                {/* Key Points */}
+                <div className="grid md:grid-cols-2 gap-4 mb-6">
+                  <div className="bg-yellow-50 border-2 border-yellow-600 rounded-lg p-4">
+                    <h4 className="font-bold text-yellow-900 mb-2">💡 KEY POINT:</h4>
+                    <p className="text-sm text-yellow-900">
+                      {currentSetup.keyPoint}
+                    </p>
+                  </div>
+                  
+                  <div className="bg-green-50 border-2 border-green-600 rounded-lg p-4">
+                    <h4 className="font-bold text-green-900 mb-2">📊 STATS:</h4>
+                    <p className="text-sm text-green-900">
+                      <strong>Risk:</strong> {currentSetup.risk}<br />
+                      <strong>Reward:</strong> {currentSetup.reward}<br />
+                      <strong>Win Rate:</strong> {currentSetup.winRate}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Print Button */}
+                <button
+                  onClick={() => window.print()}
+                  className="no-print w-full bg-blue-600 text-white py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition-colors"
+                >
+                  🖨️ PRINT / SAVE AS PDF
+                </button>
+              </div>
+            </div>
+          );
+        };
+
+        ReactDOM.render(<GoldbachVisualSetups />, document.getElementById('root'));
+    </script>
+</body>
+</html>
