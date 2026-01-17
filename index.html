@@ -4,21 +4,21 @@ const TenModelTradingSystem = () => {
   const [activeModel, setActiveModel] = useState(1);
 
   const levels = [
-    { pct: 100, label: '100% HIGH', color: 'green', zone: 'premium' },
-    { pct: 97, label: '97%', color: 'green', zone: 'premium' },
-    { pct: 89, label: '89%', color: 'green', zone: 'premium' },
-    { pct: 83, label: '83%', color: 'green', zone: 'premium' },
-    { pct: 71, label: '71%', color: 'blue', zone: 'flow' },
-    { pct: 59, label: '59%', color: 'red', zone: 'rebalance' },
-    { pct: 53, label: '53%', color: 'red', zone: 'rebalance' },
-    { pct: 50, label: '50% EQ', color: 'yellow', zone: 'equilibrium' },
-    { pct: 47, label: '47%', color: 'red', zone: 'rebalance' },
-    { pct: 41, label: '41%', color: 'red', zone: 'rebalance' },
-    { pct: 29, label: '29%', color: 'blue', zone: 'flow' },
-    { pct: 17, label: '17%', color: 'green', zone: 'discount' },
-    { pct: 11, label: '11%', color: 'green', zone: 'discount' },
-    { pct: 3, label: '3%', color: 'green', zone: 'discount' },
-    { pct: 0, label: '0% LOW', color: 'green', zone: 'discount' },
+    { pct: 100, label: '100% HIGH', zone: 'premium' },
+    { pct: 97, label: '97%', zone: 'premium' },
+    { pct: 89, label: '89%', zone: 'premium' },
+    { pct: 83, label: '83%', zone: 'premium' },
+    { pct: 71, label: '71%', zone: 'flow' },
+    { pct: 59, label: '59%', zone: 'rebalance' },
+    { pct: 53, label: '53%', zone: 'rebalance' },
+    { pct: 50, label: '50% EQ', zone: 'equilibrium' },
+    { pct: 47, label: '47%', zone: 'rebalance' },
+    { pct: 41, label: '41%', zone: 'rebalance' },
+    { pct: 29, label: '29%', zone: 'flow' },
+    { pct: 17, label: '17%', zone: 'discount' },
+    { pct: 11, label: '11%', zone: 'discount' },
+    { pct: 3, label: '3%', zone: 'discount' },
+    { pct: 0, label: '0% LOW', zone: 'discount' },
   ];
 
   const models = {
@@ -26,7 +26,6 @@ const TenModelTradingSystem = () => {
       name: 'OB Premium Sell',
       zone: 'Premium',
       direction: 'SELL',
-      color: 'red',
       bgColor: 'bg-red-50',
       borderColor: 'border-red-600',
       levels: '97-89-59',
@@ -48,7 +47,6 @@ const TenModelTradingSystem = () => {
       name: 'Stoprun Premium Sell',
       zone: 'Premium',
       direction: 'SELL',
-      color: 'red',
       bgColor: 'bg-red-50',
       borderColor: 'border-red-600',
       levels: '1.11-100-71-59',
@@ -71,7 +69,6 @@ const TenModelTradingSystem = () => {
       name: 'FVG Premium Sell',
       zone: 'Premium',
       direction: 'SELL',
-      color: 'red',
       bgColor: 'bg-red-50',
       borderColor: 'border-red-600',
       levels: '100-89-83-59-50',
@@ -94,7 +91,6 @@ const TenModelTradingSystem = () => {
       name: 'BR Premium Buy',
       zone: 'Premium',
       direction: 'BUY',
-      color: 'green',
       bgColor: 'bg-green-50',
       borderColor: 'border-green-600',
       levels: '59-71-100',
@@ -116,7 +112,6 @@ const TenModelTradingSystem = () => {
       name: 'MB Premium Sell',
       zone: 'Premium',
       direction: 'SELL',
-      color: 'red',
       bgColor: 'bg-red-50',
       borderColor: 'border-red-600',
       levels: '50-59-41',
@@ -138,7 +133,6 @@ const TenModelTradingSystem = () => {
       name: 'BR Discount Sell',
       zone: 'Discount',
       direction: 'SELL',
-      color: 'red',
       bgColor: 'bg-red-50',
       borderColor: 'border-red-600',
       levels: '29-41-0',
@@ -160,7 +154,6 @@ const TenModelTradingSystem = () => {
       name: 'MB Discount Buy',
       zone: 'Discount',
       direction: 'BUY',
-      color: 'green',
       bgColor: 'bg-green-50',
       borderColor: 'border-green-600',
       levels: '50-41-59',
@@ -182,7 +175,6 @@ const TenModelTradingSystem = () => {
       name: 'FVG Discount Buy',
       zone: 'Discount',
       direction: 'BUY',
-      color: 'green',
       bgColor: 'bg-green-50',
       borderColor: 'border-green-600',
       levels: '0-11-17-41-50',
@@ -205,7 +197,6 @@ const TenModelTradingSystem = () => {
       name: 'OB Discount Buy',
       zone: 'Discount',
       direction: 'BUY',
-      color: 'green',
       bgColor: 'bg-green-50',
       borderColor: 'border-green-600',
       levels: '03-11-41-50',
@@ -227,7 +218,6 @@ const TenModelTradingSystem = () => {
       name: 'Stoprun Discount Buy',
       zone: 'Discount',
       direction: 'BUY',
-      color: 'green',
       bgColor: 'bg-green-50',
       borderColor: 'border-green-600',
       levels: '-0.11-0-03-29-41',
@@ -250,6 +240,14 @@ const TenModelTradingSystem = () => {
 
   const currentModel = models[activeModel];
 
+  const getLevelColor = (zone) => {
+    if (zone === 'premium' || zone === 'discount') return 'border-green-500 text-green-700';
+    if (zone === 'flow') return 'border-blue-500 text-blue-700';
+    if (zone === 'rebalance') return 'border-red-500 text-red-700';
+    if (zone === 'equilibrium') return 'border-yellow-500 text-yellow-700';
+    return 'border-gray-400 text-gray-600';
+  };
+
   return (
     <div className="w-full min-h-screen bg-gray-900 p-4">
       <div className="max-w-7xl mx-auto bg-white rounded-xl p-6">
@@ -260,7 +258,6 @@ const TenModelTradingSystem = () => {
           Smart Money Concepts - Institutional Trading System
         </p>
 
-        {/* Model Selector */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
           {Object.keys(models).map((key) => {
             const model = models[key];
@@ -285,7 +282,6 @@ const TenModelTradingSystem = () => {
           })}
         </div>
 
-        {/* Main Chart */}
         <div className={`${currentModel.bgColor} ${currentModel.borderColor} border-4 rounded-xl p-6 mb-6`}>
           <div className="text-center mb-4">
             <h2 className="text-2xl font-bold">
@@ -300,23 +296,14 @@ const TenModelTradingSystem = () => {
             </div>
           </div>
 
-          {/* Chart Area */}
           <div className="bg-white border-4 border-black rounded-lg p-4 relative" style={{ height: '500px' }}>
-            {/* Horizontal Level Lines */}
             {levels.map((level) => {
-              let colorClass = 'border-gray-400 text-gray-600';
-              if (level.zone === 'premium') colorClass = 'border-green-500 text-green-700';
-              if (level.zone === 'discount') colorClass = 'border-green-500 text-green-700';
-              if (level.zone === 'flow') colorClass = 'border-blue-500 text-blue-700';
-              if (level.zone === 'rebalance') colorClass = 'border-red-500 text-red-700';
-              if (level.zone === 'equilibrium') colorClass = 'border-yellow-500 text-yellow-700';
-
               const isThick = level.pct === 100 || level.pct === 0 || level.pct === 50 || level.pct === 71 || level.pct === 29;
 
               return (
                 <div
                   key={level.pct}
-                  className={`absolute left-0 right-0 border-t-2 ${isThick ? 'border-solid' : 'border-dashed'} ${colorClass}`}
+                  className={`absolute left-0 right-0 border-t-2 ${isThick ? 'border-solid' : 'border-dashed'} ${getLevelColor(level.zone)}`}
                   style={{ bottom: `${level.pct}%` }}
                 >
                   <span className="absolute left-2 -top-3 bg-white px-1 text-xs font-bold">
@@ -326,25 +313,19 @@ const TenModelTradingSystem = () => {
               );
             })}
 
-            {/* Price Path */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
-              {/* Path Lines */}
               {currentModel.path.map((point, idx) => {
                 if (idx === currentModel.path.length - 1) return null;
                 const next = currentModel.path[idx + 1];
-                const x1 = `${point.x}%`;
-                const y1 = `${100 - point.y}%`;
-                const x2 = `${next.x}%`;
-                const y2 = `${100 - next.y}%`;
                 const isUp = next.y > point.y;
                 
                 return (
                   <line
                     key={idx}
-                    x1={x1}
-                    y1={y1}
-                    x2={x2}
-                    y2={y2}
+                    x1={`${point.x}%`}
+                    y1={`${100 - point.y}%`}
+                    x2={`${next.x}%`}
+                    y2={`${100 - next.y}%`}
                     stroke={isUp ? '#10b981' : '#ef4444'}
                     strokeWidth="3"
                     opacity="0.8"
@@ -352,7 +333,6 @@ const TenModelTradingSystem = () => {
                 );
               })}
 
-              {/* Points */}
               {currentModel.path.map((point, idx) => {
                 let label = '';
                 let color = '#6b7280';
@@ -398,7 +378,6 @@ const TenModelTradingSystem = () => {
           </div>
         </div>
 
-        {/* Setup Instructions */}
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-blue-50 border-2 border-blue-600 rounded-xl p-6">
             <h3 className="text-xl font-bold text-blue-900 mb-4">📋 SETUP STEPS</h3>
@@ -434,13 +413,12 @@ const TenModelTradingSystem = () => {
           </div>
         </div>
 
-        {/* Legend */}
         <div className="mt-6 bg-gray-50 border-2 border-gray-300 rounded-lg p-4">
           <h4 className="font-bold text-gray-900 mb-3 text-center">ZONE LEGEND</h4>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-green-500 border-2 border-green-700"></div>
-              <span>Premium/Discount (Sell/Buy)</span>
+              <span>Premium/Discount</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-blue-500 border-2 border-blue-700"></div>
